@@ -367,7 +367,7 @@ $jsonValidator->validate(
 if ($jsonValidator->isValid()) {
     echo "The supplied JSON validates against the schema.<br/>";
 } else {
-    echo "JSON does not validate. Violations:<br/>";
+    echo "Dados não validados. Violações:<br/>";
     foreach ($jsonValidator->getErrors() as $error) {
         echo sprintf("[%s] %s<br/>", $error['property'], $error['message']);
     }
