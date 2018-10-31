@@ -60,7 +60,7 @@
                 "Cnpj": {
                     "required": true,
                     "type": "string",
-                    "maxLength": 14
+                    "pattern": "^[0-9]{14}"
                 },
                 "InscricaoMunicipal": {
                     "required": true,
@@ -76,12 +76,12 @@
                 "Cnpj": {
                     "required": false,
                     "type": ["string","null"],
-                    "maxLength": 14
+                    "pattern": "^[0-9]{14}"
                 },
                 "Cpf": {
                     "required": false,
                     "type": ["string","null"],
-                    "maxLength": 11
+                    "pattern": "^[0-9]{11}"
                 },
                 "InscricaoMunicipal": {
                     "required": false,
@@ -130,7 +130,7 @@
                     }
                 }
             }
-        },    
+        },
         "Servico": {
             "required": true,
             "type": "object",
@@ -151,65 +151,6 @@
                     "required": true,
                     "type": "integer",
                     "pattern": "^[0-9]{7}"
-                },
-                "Valores": {
-                    "required": true,
-                    "type": "object",
-                    "properties": {
-                        "ValorServicos": {
-                            "required": true,
-                            "type": "number"
-                        },
-                        "ValorDeducoes": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "ValorPis": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "ValorCofins": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "ValorInss": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "ValorIr": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "ValorCsll": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "IssRetido": {
-                            "required": true,
-                            "type": "integer",
-                            "pattern": "^[1-2]{1}"
-                        },
-                        "ValorIss": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "OutrasRetencoes": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "Aliquota": {
-                            "required": true,
-                            "type": "number"
-                        },
-                        "DescontoIncondicionado": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        },
-                        "DescontoCondicionado": {
-                            "required": false,
-                            "type": ["number", "null"]
-                        }
-                    }
                 }
             }
         },
@@ -224,12 +165,12 @@
                 "Cnpj": {
                     "required": false,
                     "type": ["string","null"],
-                    "maxLength": 14
+                    "pattern": "^[0-9]{14}"
                 },
                 "Cpf": {
                     "required": false,
                     "type": ["string","null"],
-                    "maxLength": 11
+                    "pattern": "^[0-9]{11}"
                 },
                 "InscricaoMunicipal": {
                     "required": false,
