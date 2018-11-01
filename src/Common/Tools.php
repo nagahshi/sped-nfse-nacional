@@ -9,6 +9,8 @@ class Tools
     protected $config;
     protected $prestador;
     
+    public $lastRequest;
+    
     public function __construct($config, Certificate $cert)
     {
         $this->config = json_decode($config);
@@ -27,5 +29,11 @@ class Tools
     public function sign()
     {
         
+    }
+    
+    public function send($message)
+    {
+        $this->lastRequest = $message;
+        return '';
     }
 }
