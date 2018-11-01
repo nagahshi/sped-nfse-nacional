@@ -2,7 +2,8 @@
 
 namespace NFePHP\NFSeNac;
 
-class RPS
+
+class Standarize
 {
     //put your code here
 }

@@ -317,7 +317,7 @@ $std->Servico->Discriminacao = 'Teste de RPS';
 $std->Servico->CodigoMunicipio = 3106200;
 
 $std->Servico->Valores = new \stdClass();
-//$std->Servico->Valores->ValorServicos = 100.00;
+$std->Servico->Valores->ValorServicos = 100.00;
 $std->Servico->Valores->ValorDeducoes = 10.00;
 $std->Servico->Valores->ValorPis = 10.00;
 $std->Servico->Valores->ValorCofins = 10.00;
