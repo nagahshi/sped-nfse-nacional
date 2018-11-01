@@ -37,7 +37,7 @@ class Tools extends BaseTools
             . "<CodigoCancelamento>$codigo</CodigoCancelamento>"
             . "</InfPedidoCancelamento>";
         
-        return $response;
+        return $this->send($message);
     }
     
     /**
@@ -55,8 +55,7 @@ class Tools extends BaseTools
             . $this->prestador
             . "<Protocolo>$protocolo</Protocolo>"
             . "</ConsultarLoteRpsEnvio>";
-        
-        return $response;
+        return $this->send($message);
     }
     
     /**
@@ -89,7 +88,7 @@ class Tools extends BaseTools
             }    
             $message .= "</ConsultarNfseEnvio>";
         
-        return $response;
+        return $this->send($message);
     }
     
     /**
@@ -111,7 +110,7 @@ class Tools extends BaseTools
             . "<Pagina>$pagina</Pagina>"
             . "</ConsultarNfseFaixaEnvio>";
         
-        return $response;
+        return $this->send($message);
     }
     
     /**
@@ -133,7 +132,7 @@ class Tools extends BaseTools
             . $this->prestador
             . "</ConsultarNfseRpsEnvio>";
         
-        return $response;
+        return $this->send($message);
     }
     
     /**
@@ -160,7 +159,7 @@ class Tools extends BaseTools
             . "</LoteRps>"
             . "</EnviarLoteRpsEnvio>";
         
-        return $response;
+        return $this->send($message);
     }
     
     /**
@@ -182,6 +181,6 @@ class Tools extends BaseTools
             . "</ListaRps>"
             . "</GerarNfseEnvio>";
         
-        return $response;
+        return $this->send($message);
     }
 }
