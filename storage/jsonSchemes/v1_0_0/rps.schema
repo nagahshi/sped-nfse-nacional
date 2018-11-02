@@ -2,127 +2,111 @@
     "title": "RPS",
     "type": "object",
     "properties": {
-        "IdentificacaoRps": {
+        "identificacaorps": {
             "required": true,
             "type": "object",
             "properties": {
-                "Numero": {
+                "numero": {
                     "required": true,
                     "type": "integer",
                     "pattern": "^[0-9]{1,15}"
                 },
-                "Serie": {
+                "serie": {
                     "required": true,
                     "type": "string",
                     "maxLength": 5
                 },
-                "Tipo": {
+                "tipo": {
                     "required": true,
                     "type": "integer",
                     "pattern": "^[1-3]{1}"
                 }
             }
         },
-        "DataEmissao": {
+        "dataemissao": {
             "required": true,
             "type": "string",
             "pattern": "^([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])$"
         },
-        "NaturezaOperacao": {
+        "naturezaoperacao": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-6]{1}"
         },
-        "RegimeEspecialTributacao": {
+        "regimeespecialtributacao": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-6]{1}"
         },
-        "OptanteSimplesNacional": {
+        "optantesimplesnacional": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-2]{1}"
         },
-        "IncentivoCultural": {
+        "incentivocultural": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-2]{1}"
         },
-        "Status": {
+        "status": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-2]{1}"
         },
-        "Prestador": {
+        "tomador": {
             "required": true,
             "type": "object",
             "properties": {
-                "Cnpj": {
-                    "required": true,
-                    "type": "string",
-                    "pattern": "^[0-9]{14}"
-                },
-                "InscricaoMunicipal": {
-                    "required": true,
-                    "type": "string",
-                    "maxLength": 14
-                }
-            }
-        },
-        "Tomador": {
-            "required": true,
-            "type": "object",
-            "properties": {
-                "Cnpj": {
+                "cnpj": {
                     "required": false,
                     "type": ["string","null"],
                     "pattern": "^[0-9]{14}"
                 },
-                "Cpf": {
+                "cpf": {
                     "required": false,
                     "type": ["string","null"],
                     "pattern": "^[0-9]{11}"
                 },
-                "InscricaoMunicipal": {
+                "inscricaomunicipal": {
                     "required": false,
                     "type": ["string","null"],
                     "maxLength": 14
                 },
-                "RazaoSocial": {
+                "razaosocial": {
                     "required": true,
                     "type": "string"
                 },
-                "Endereco": {
+                "endereco": {
                     "required": false,
                     "type": ["object","null"],
                     "properties": {
-                        "Endereco": {
+                        "endereco": {
                             "required": true,
                             "type": "string"
                         },
-                        "Numero": {
+                        "numero": {
                             "required": true,
                             "type": "string"
                         },
-                        "Complemento": {
+                        "complemento": {
                             "required": true,
                             "type": "string"
                         },
-                        "Bairro": {
+                        "bairro": {
                             "required": true,
                             "type": "string"
                         },
-                        "CodigoMunicipio": {
+                        "codigomunicipio": {
                             "required": true,
                             "type": "integer",
                             "pattern": "^[0-9]{7}"
                         },
-                        "Uf": {
+                        "uf": {
                             "required": true,
                             "type": "string",
                             "maxLength": 2
                         },
-                        "Cep": {
+                        "cep": {
                             "required": true,
                             "type": "integer",
                             "pattern": "^[0-9]{8}"
@@ -131,63 +115,122 @@
                 }
             }
         },
-        "Servico": {
+        "servico": {
             "required": true,
             "type": "object",
             "properties": {
-                "ItemListaServico": {
+                "itemlistaservico": {
                     "required": true,
                     "type": "string"
                 },
-                "CodigoTributacaoMunicipio": {
+                "codigotributacaomunicipio": {
                     "required": true,
                     "type": "string"
                 },
-                "Discriminacao": {
+                "discriminacao": {
                     "required": true,
                     "type": "string"
                 },
-                "CodigoMunicipio": {
+                "codigomunicipio": {
                     "required": true,
                     "type": "integer",
                     "pattern": "^[0-9]{7}"
+                },
+                "valores": {
+                    "required": true,
+                    "type": "object",
+                    "properties": {
+                        "valorservicos": {
+                            "required": true,
+                            "type": "number"
+                        },
+                        "valordeducoes": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "valorpis": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "valorcofins": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "valorinss": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "valorir": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "valorcsll": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "issretido": {
+                            "required": true,
+                            "type": "integer",
+                            "pattern": "^[1-2]{1}"
+                        },
+                        "valoriss": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "outrasretencoes": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "aliquota": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "descontoincondicionado": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        },
+                        "descontocondicionado": {
+                            "required": false,
+                            "type": ["number", "null"]
+                        }
+                    }
                 }
             }
         },
-        "IntermediarioServico": {
+        "intermediarioservico": {
             "required": false,
             "type": ["object","null"],
             "properties": {
-                "RazaoSocial": {
+                "razaosocial": {
                     "required": true,
                     "type": "string"
                 },
-                "Cnpj": {
+                "cnpj": {
                     "required": false,
                     "type": ["string","null"],
                     "pattern": "^[0-9]{14}"
                 },
-                "Cpf": {
+                "cpf": {
                     "required": false,
                     "type": ["string","null"],
                     "pattern": "^[0-9]{11}"
                 },
-                "InscricaoMunicipal": {
+                "inscricaomunicipal": {
                     "required": false,
                     "type": ["string","null"],
                     "maxLength": 14
                 }
             }
         },
-        "ConstrucaoCivil": {
+        "construcaocivil": {
             "required": false,
             "type": ["object","null"],
             "properties": {
-                "CodigoObra": {
+                "codigoobra": {
                     "required": true,
                     "type": "string"
                 },
-                "Art": {
+                "art": {
                     "required": true,
                     "type": "string"
                 }

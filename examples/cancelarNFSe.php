@@ -27,5 +27,6 @@ $numero = '12';
 
 $response = $tools->cancelarNfse($id, $numero, $tools::ERRO_EMISSAO);
 
+
 header("Content-type: text/xml");
-echo $tools->lastRequest;
+echo "<?xml version='1.0' encoding='UTF-8'?>".$tools->lastRequest;

@@ -4,6 +4,7 @@ namespace NFePHP\NFSeNac;
 
 use NFePHP\NFSeNac\Common\Tools as BaseTools;
 use NFePHP\NFSeNac\RpsInterface;
+use NFePHP\Common\Certificate;
 
 class Tools extends BaseTools
 {
@@ -35,7 +36,9 @@ class Tools extends BaseTools
             . "<CodigoMunicipio>" . $this->config->cmun . "</CodigoMunicipio>"
             . "</IdentificacaoNfse>"
             . "<CodigoCancelamento>$codigo</CodigoCancelamento>"
-            . "</InfPedidoCancelamento>";
+            . "</InfPedidoCancelamento>"
+            . "</Pedido>"
+            . "</CancelarNfseEnvio>";
         
         return $this->send($message);
     }
