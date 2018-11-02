@@ -34,6 +34,5 @@ class Tools
     public function send($message)
     {
         $this->lastRequest = $message;
-        return '';
     }
 }

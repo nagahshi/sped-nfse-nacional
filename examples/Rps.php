@@ -1,5 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+require_once '../bootstrap.php';
+
+use NFePHP\NFSeNac\Rps;
+
 $std = new \stdClass();
+$std->version = '1.0.0';
 $std->IdentificacaoRps = new \stdClass();
 $std->IdentificacaoRps->Numero = 11; //limite 15 digitos
 $std->IdentificacaoRps->Serie = '1'; //BH deve ser string numerico
@@ -22,10 +29,6 @@ $std->RegimeEspecialTributacao = 1;    // 1 – Microempresa municipal
 $std->OptanteSimplesNacional = 1; //1 - SIM 2 - Não
 $std->IncentivoCultural = 2; //1 - SIM 2 - Não
 $std->Status = 1;  // 1 – Normal  2 – Cancelado
-
-$std->Prestador = new \stdClass();
-$std->Prestador->Cnpj = '99999999000191';
-$std->Prestador->InscricaoMunicipal = '1733160024';
 
 $std->Tomador = new \stdClass();
 $std->Tomador->Cnpj = "99999999000191";
@@ -71,8 +74,14 @@ $std->ConstrucaoCivil = new \stdClass();
 $std->ConstrucaoCivil->CodigoObra = '1234';
 $std->ConstrucaoCivil->Art = '1234';
 
+$rps = new Rps($std);
+
+header("Content-type: text/xml");
+echo $rps->render();
+
+/*
 echo "<pre>";
 print_r(json_encode($std));
 echo "</pre>";
-
+*/
 
