@@ -1,10 +1,13 @@
 # sped-nfse-nacional
 
-O projeto piloto iniciará com as cidades :  
+O "Projeto Piloto" está com certeza sendo aplicado a:
+
+- Belo Horizonte (MG)
+- Porto Alegre (RS) 
+
+Ainda iniciará com as cidades (segundo as fontes oficiais):  
 
 - Rio de Janeiro (RJ)
 - São Paulo (SP)
-- Belo Horizonte (MG)
-- Porto Alegre (RS) 
 - Maringá (PR) 
 - Marabá (PA)
