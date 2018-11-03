@@ -47,13 +47,13 @@ class Factory
             "RegimeEspecialTributacao",
             $this->std->regimeespecialtributacao,
             true
-        );                    
+        );
         $this->dom->addChild(
             $infRps,
             "OptanteSimplesNacional",
             $this->std->optantesimplesnacional,
             true
-        );                                        
+        );
         $this->dom->addChild(
             $infRps,
             "IncentivoCultural",
@@ -65,7 +65,7 @@ class Factory
             "Status",
             $this->std->status,
             true
-        );                    
+        );
         
         $this->servico($infRps);
         $this->tomador($infRps);
@@ -111,14 +111,14 @@ class Factory
         $this->dom->addChild(
             $valnode,
             "ValorServicos",
-            number_format($val->valorservicos, 2 , '.', ''),
+            number_format($val->valorservicos, 2, '.', ''),
             true
         );
         $this->dom->addChild(
             $valnode,
             "ValorDeducoes",
             isset($val->valordeducoes)
-                ? number_format($val->valordeducoes, 2, '.', '') 
+                ? number_format($val->valordeducoes, 2, '.', '')
                 : null,
             false
         );
@@ -126,7 +126,7 @@ class Factory
             $valnode,
             "ValorPis",
             isset($val->valorpis)
-                ? number_format($val->valorpis, 2, '.', '') 
+                ? number_format($val->valorpis, 2, '.', '')
                 : null,
             false
         );
@@ -134,7 +134,7 @@ class Factory
             $valnode,
             "ValorCofins",
             isset($val->valorcofins)
-                ? number_format($val->valorcofins, 2 , '.', '')
+                ? number_format($val->valorcofins, 2, '.', '')
                 : null,
             false
         );
@@ -142,23 +142,23 @@ class Factory
             $valnode,
             "ValorInss",
             isset($val->valorinss)
-                ? number_format($val->valorinss, 2 , '.', '')
+                ? number_format($val->valorinss, 2, '.', '')
                 : null,
             false
-        );                    
+        );
         $this->dom->addChild(
             $valnode,
             "ValorIr",
             isset($val->valorir)
-                ? number_format($val->valorir, 2 , '.', '')
+                ? number_format($val->valorir, 2, '.', '')
                 : null,
             false
-        );                    
+        );
         $this->dom->addChild(
             $valnode,
             "ValorCsll",
             isset($val->valorcsll)
-                ? number_format($val->valorcsll, 2 , '.', '')
+                ? number_format($val->valorcsll, 2, '.', '')
                 : null,
             false
         );
@@ -172,7 +172,7 @@ class Factory
             $valnode,
             "ValorIss",
             isset($val->valoriss)
-                ? number_format($val->valoriss, 2 , '.', '')
+                ? number_format($val->valoriss, 2, '.', '')
                 : null,
             false
         );
@@ -180,7 +180,7 @@ class Factory
             $valnode,
             "OutrasRetencoes",
             isset($val->outrasretencoes)
-                ? number_format($val->outrasretencoes, 2 , '.', '')
+                ? number_format($val->outrasretencoes, 2, '.', '')
                 : null,
             false
         );
@@ -194,7 +194,7 @@ class Factory
             $valnode,
             "DescontoIncondicionado",
             isset($val->descontoincondicionado)
-                ? number_format($val->descontoincondicionado, 2 , '.', '')
+                ? number_format($val->descontoincondicionado, 2, '.', '')
                 : null,
             false
         );
@@ -202,7 +202,7 @@ class Factory
             $valnode,
             "DescontoCondicionado",
             isset($val->descontocondicionado)
-                ? number_format($val->descontocondicionado, 2 , '.', '')
+                ? number_format($val->descontocondicionado, 2, '.', '')
                 : null,
             false
         );
@@ -254,14 +254,14 @@ class Factory
                 $tom->cnpj,
                 true
             );
-        } else {    
+        } else {
             $this->dom->addChild(
                 $cpfcnpj,
                 "Cpf",
                 $tom->cpf,
                 true
             );
-        }    
+        }
         $ide->appendChild($cpfcnpj);
         $this->dom->addChild(
             $ide,
@@ -344,7 +344,7 @@ class Factory
                 $int->cnpj,
                 true
             );
-        } else {    
+        } else {
             $this->dom->addChild(
                 $cpfcnpj,
                 "Cpf",
@@ -380,7 +380,7 @@ class Factory
             "Art",
             $obra->art,
             true
-        );        
+        );
         $parent->appendChild($node);
     }
 }

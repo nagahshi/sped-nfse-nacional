@@ -80,15 +80,15 @@ class Tools extends BaseTools
             . "<DataFinal>$dfim</DataFinal>"
             . "</PeriodoEmissao>";
             
-            if ($tomadorCnpj || $tomadorCpf) {
-                $content .= "<Tomador>"
-                . "<CpfCnpj>"
-                . !empty($tomadorCnpj) ? "<Cnpj>$tomadorCnpj</Cnpj>" : ""
-                . !empty($tomadorCpf) ? "<Cpf>$tomadorCpf</Cpf>" : ""    
-                . "</CpfCnpj>"
-                . !empty($tomadorIM) ? "<InscricaoMunicipal>$tomadorIM</InscricaoMunicipal>" : ""
-                . "</Tomador>";
-            }    
+        if ($tomadorCnpj || $tomadorCpf) {
+            $content .= "<Tomador>"
+            . "<CpfCnpj>"
+            . !empty($tomadorCnpj) ? "<Cnpj>$tomadorCnpj</Cnpj>" : ""
+            . !empty($tomadorCpf) ? "<Cpf>$tomadorCpf</Cpf>" : ""
+            . "</CpfCnpj>"
+            . !empty($tomadorIM) ? "<InscricaoMunicipal>$tomadorIM</InscricaoMunicipal>" : ""
+            . "</Tomador>";
+        }
             $content .= "</ConsultarNfseEnvio>";
         
         return $this->send($content, $operation);
@@ -141,7 +141,7 @@ class Tools extends BaseTools
     /**
      * Envia LOTE de RPS para emissão de NFSe (ASSINCRONO)
      * @param array $arps Array contendo de 1 a 50 RPS::class
-     * @param strinfg $lote Número do lote de envio
+     * @param string $lote Número do lote de envio
      * @return string
      * @throws \Exception
      */
@@ -153,7 +153,7 @@ class Tools extends BaseTools
             throw new \Exception('O limite é de 50 RPS por lote enviado.');
         }
         $content = '';
-        foreach($arps as $rps) {
+        foreach ($arps as $rps) {
             $xml = $this->putPrestadorInRps($rps);
             $xmlsigned = $this->sign($xml, 'InfRps', 'Id');
             $content .= $xmlsigned;
@@ -203,6 +203,4 @@ class Tools extends BaseTools
         
         return $this->send($content, $operation);
     }
-    
-    
 }
