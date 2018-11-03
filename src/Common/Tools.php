@@ -27,6 +27,7 @@ class Tools
             'homologacao' => 'http://nfse-hom.procempa.com.br/nfe-ws',
             'producao' => 'http://nfe.portoalegre.rs.gov.br/nfe-ws',
             'version' => '1.00',
+            'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
             'soapns' => 'http://ws.bhiss.pbh.gov.br'
         ],
         '3106200' => [
@@ -35,6 +36,7 @@ class Tools
             'homologacao' => 'https://bhisshomologa.pbh.gov.br/bhiss-ws/nfse',
             'producao' => 'https://bhissdigital.pbh.gov.br/bhiss-ws/nfse',
             'version' => '1.00',
+            'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
             'soapns' => 'http://ws.bhiss.pbh.gov.br'
         ]
     ];
