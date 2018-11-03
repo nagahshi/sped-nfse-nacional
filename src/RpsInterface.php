@@ -4,5 +4,5 @@ namespace NFePHP\NFSeNac;
 
 interface RpsInterface
 {
-    public function render(\stdClass $rps);
+    public function render();
 }

@@ -10,15 +10,33 @@ use JsonSchema\Validator as JsonValid;
 
 class Rps implements RpsInterface
 {
+    /**
+     * @var stdClass
+     */
     protected $std;
+    /**
+     * @var string
+     */
     protected $ver;
+    /**
+     * @var string
+     */
     protected $jsonschema;
-
+    
+    /**
+     * Constructor
+     * @param stdClass $rps
+     */
     public function __construct(stdClass $rps = null)
     {
         $this->init($rps);
     }
     
+    /**
+     * Convert Rps::class data in XML
+     * @param stdClass $rps
+     * @return string
+     */
     public function render(stdClass $rps = null)
     {
         $this->init($rps);
@@ -26,6 +44,10 @@ class Rps implements RpsInterface
         return $fac->render();
     }
     
+    /**
+     * Inicialize properties and valid input
+     * @param stdClass $rps
+     */
     private function init(stdClass $rps = null)
     {
         if (!empty($rps)) {
@@ -77,5 +99,4 @@ class Rps implements RpsInterface
         }
         return true;
     }
-
 }
