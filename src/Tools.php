@@ -6,6 +6,7 @@ use NFePHP\NFSeNac\Common\Tools as BaseTools;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\Common\Certificate;
 
+
 class Tools extends BaseTools
 {
     const ERRO_EMISSAO = 1;
@@ -174,16 +175,23 @@ class Tools extends BaseTools
     public function gerarNfse(RpsInterface $rps, $lote)
     {
         $response = '';
+        $xmlsigned = $this->putPrestadorInRps($rps);
+        $xmlsigned = $this->sign($xmlsigned, 'InfRps', 'Id');
+        
         $message = "<GerarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
-            . "<LoteRps Id=\"Lote2014111893123\" versao=\"1.00\">"
+            . "<LoteRps Id=\"$lote\" versao=\"1.00\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
             . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
             . "<QuantidadeRps>1</QuantidadeRps>"
             . "<ListaRps>"
+            . $xmlsigned
             . "</ListaRps>"
+            . "</LoteRps>"
             . "</GerarNfseEnvio>";
-        
-        return $this->send($message);
+        $messagesigned = $this->sign($message, 'LoteRps', 'Id');
+        return $this->send($messagesigned);
     }
+    
+    
 }
