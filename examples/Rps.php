@@ -6,7 +6,7 @@ require_once '../bootstrap.php';
 use NFePHP\NFSeNac\Rps;
 
 $std = new \stdClass();
-$std->version = '1.0.0';
+$std->version = '1.00'; //indica qual JsonSchema USAR na validação
 $std->IdentificacaoRps = new \stdClass();
 $std->IdentificacaoRps->Numero = 11; //limite 15 digitos
 $std->IdentificacaoRps->Serie = '1'; //BH deve ser string numerico

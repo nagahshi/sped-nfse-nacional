@@ -6,7 +6,6 @@ use NFePHP\NFSeNac\Common\Tools as BaseTools;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\Common\Certificate;
 
-
 class Tools extends BaseTools
 {
     const ERRO_EMISSAO = 1;
@@ -26,7 +25,7 @@ class Tools extends BaseTools
      */
     public function cancelarNfse($id, $numero, $codigo = self::ERRO_EMISSAO)
     {
-        $response = '';
+        $operation = 'CancelarNfse';
         $message = "<CancelarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
             . "<Pedido xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
             . "<InfPedidoCancelamento Id=\"$id\">"
@@ -40,8 +39,8 @@ class Tools extends BaseTools
             . "</InfPedidoCancelamento>"
             . "</Pedido>"
             . "</CancelarNfseEnvio>";
-        
-        return $this->send($message);
+        $content = $this->sign($message, 'InfPedidoCancelamento', 'Id');
+        return $this->send($content, $operation);
     }
     
     /**
@@ -54,12 +53,12 @@ class Tools extends BaseTools
      */
     public function consultarLoteRps($protocolo)
     {
-        $response = '';
-        $message = "<ConsultarLoteRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $operation = 'ConsultarLoteRps';
+        $content = "<ConsultarLoteRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
             . $this->prestador
             . "<Protocolo>$protocolo</Protocolo>"
             . "</ConsultarLoteRpsEnvio>";
-        return $this->send($message);
+        return $this->send($content, $operation);
     }
     
     /**
@@ -73,8 +72,8 @@ class Tools extends BaseTools
      */
     public function consultarNfse($dini, $dfim, $tomadorCnpj = null, $tomadorCpf = null, $tomadorIM = null)
     {
-        $response = '';
-        $message = "<ConsultarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $operation = 'ConsultarNfse';
+        $content = "<ConsultarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
             . $this->prestador
             . "<PeriodoEmissao>"
             . "<DataInicial>$dini</DataInicial>"
@@ -82,7 +81,7 @@ class Tools extends BaseTools
             . "</PeriodoEmissao>";
             
             if ($tomadorCnpj || $tomadorCpf) {
-                $message .= "<Tomador>"
+                $content .= "<Tomador>"
                 . "<CpfCnpj>"
                 . !empty($tomadorCnpj) ? "<Cnpj>$tomadorCnpj</Cnpj>" : ""
                 . !empty($tomadorCpf) ? "<Cpf>$tomadorCpf</Cpf>" : ""    
@@ -90,9 +89,9 @@ class Tools extends BaseTools
                 . !empty($tomadorIM) ? "<InscricaoMunicipal>$tomadorIM</InscricaoMunicipal>" : ""
                 . "</Tomador>";
             }    
-            $message .= "</ConsultarNfseEnvio>";
+            $content .= "</ConsultarNfseEnvio>";
         
-        return $this->send($message);
+        return $this->send($content, $operation);
     }
     
     /**
@@ -104,8 +103,8 @@ class Tools extends BaseTools
      */
     public function consultarNfsePorFaixa($nini, $nfim, $pagina = 1)
     {
-        $response = '';
-        $message = "<ConsultarNfseFaixaEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $operation = 'ConsultarNfseFaixa';
+        $content = "<ConsultarNfseFaixaEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
             . $this->prestador
             . "<Faixa>"
             . "<NumeroNfseInicial>$nini</NumeroNfseInicial>"
@@ -114,7 +113,7 @@ class Tools extends BaseTools
             . "<Pagina>$pagina</Pagina>"
             . "</ConsultarNfseFaixaEnvio>";
         
-        return $this->send($message);
+        return $this->send($content, $operation);
     }
     
     /**
@@ -126,8 +125,8 @@ class Tools extends BaseTools
      */
     public function consultarNfsePorRps($numero, $serie, $tipo)
     {
-        $response = '';
-        $message = "<ConsultarNfseRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $operation = "ConsultarNfseRps";
+        $content = "<ConsultarNfseRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
             . "<IdentificacaoRps>"
             . "<Numero>$numero</Numero>"
             . "<Serie>$serie</Serie>"
@@ -136,34 +135,44 @@ class Tools extends BaseTools
             . $this->prestador
             . "</ConsultarNfseRpsEnvio>";
         
-        return $this->send($message);
+        return $this->send($content, $operation);
     }
     
     /**
      * Envia LOTE de RPS para emissão de NFSe (ASSINCRONO)
      * @param array $arps Array contendo de 1 a 50 RPS::class
+     * @param strinfg $lote Número do lote de envio
      * @return string
      * @throws \Exception
      */
-    public function recepcionarLoteRps($arps)
+    public function recepcionarLoteRps($arps, $lote)
     {
-        $response = '';
+        $operation = 'EnviarLoteRps';
         $no_of_rps_in_lot = count($arps);
         if ($no_of_rps_in_lot > 50) {
             throw new \Exception('O limite é de 50 RPS por lote enviado.');
         }
-        $message = "<EnviarLoteRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
-            . "<LoteRps Id=\"lote\" versao=\"1.00\">"
-            . "<NumeroLote>1</NumeroLote>"
+        $content = '';
+        foreach($arps as $rps) {
+            $xml = $this->putPrestadorInRps($rps);
+            $xmlsigned = $this->sign($xml, 'InfRps', 'Id');
+            $content .= $xmlsigned;
+        }
+        $contentmsg = "<EnviarLoteRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+            . "<LoteRps Id=\"$lote\" versao=\"{$this->wsobj->version}\">"
+            . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
             . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
             . "<QuantidadeRps>$no_of_rps_in_lot</QuantidadeRps>"
             . "<ListaRps>"
+            . $content
             . "</ListaRps>"
             . "</LoteRps>"
             . "</EnviarLoteRpsEnvio>";
         
-        return $this->send($message);
+        $content = $this->sign($contentmsg, 'LoteRps', 'Id');
+            
+        return $this->send($content, $operation);
     }
     
     /**
@@ -174,12 +183,13 @@ class Tools extends BaseTools
      */
     public function gerarNfse(RpsInterface $rps, $lote)
     {
-        $response = '';
+        $operation = "GerarNfse";
+        
         $xmlsigned = $this->putPrestadorInRps($rps);
         $xmlsigned = $this->sign($xmlsigned, 'InfRps', 'Id');
         
-        $message = "<GerarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
-            . "<LoteRps Id=\"$lote\" versao=\"1.00\">"
+        $contentmsg = "<GerarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+            . "<LoteRps Id=\"$lote\" versao=\"{$this->config->version}\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
             . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
@@ -189,8 +199,9 @@ class Tools extends BaseTools
             . "</ListaRps>"
             . "</LoteRps>"
             . "</GerarNfseEnvio>";
-        $messagesigned = $this->sign($message, 'LoteRps', 'Id');
-        return $this->send($messagesigned);
+        $content = $this->sign($contentmsg, 'LoteRps', 'Id');
+        
+        return $this->send($content, $operation);
     }
     
     
