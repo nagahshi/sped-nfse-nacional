@@ -6,15 +6,19 @@ use NFePHP\Common\Certificate;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\Common\DOMImproved as Dom;
 use NFePHP\NFSeNac\Common\Signer;
+use NFePHP\NFSeNac\Common\Soap\SoapInterface;
+use NFePHP\NFSeNac\Common\Soap\SoapCurl;
 
 class Tools
 {
+    public $lastRequest;
+    
     protected $config;
     protected $prestador;
     protected $certificate;
     protected $wsobj;
+    protected $soap;
     protected $environment;
-    public $lastRequest;
     
     protected $urls = [
         '4314902' => [
@@ -48,6 +52,18 @@ class Tools
         }
     }
     
+    /**
+     * SOAP communication dependency injection
+     * @param SoapInterface $soap
+     */
+    public function loadSoapClass(SoapInterface $soap)
+    {
+        $this->soap = $soap;
+    }
+    
+    /**
+     * Build tag Prestador
+     */
     protected function buildPrestadorTag()
     {
         $this->prestador = "<Prestador>"
@@ -56,7 +72,13 @@ class Tools
             . "</Prestador>";
     }
 
-
+    /**
+     * Sign XML passing in content
+     * @param string $content
+     * @param string $tagname
+     * @param string $mark
+     * @return string
+     */
     public function sign($content, $tagname, $mark)
     {
         $xml = Signer::sign(
@@ -72,16 +94,48 @@ class Tools
         return $dom->saveXML($dom->documentElement);
     }
     
+    /**
+     *
+     * @param string $message
+     * @param string $operation
+     * @return string
+     */
     public function send($message, $operation)
     {
         $action = "{$this->wsobj->soapns}/$operation";
-        $url = $this->wsobj->$this->environment;
+        $url = $this->wsobj->homologacao;
+        if ($this->environment === 'producao') {
+            $url = $this->wsobj->producao;
+        }
         $request = $this->createSoapRequest($message, $operation);
         $this->lastRequest = $request;
         
+        
         //TODO envio da mensagem SOAP para o webservice
+        if (empty($this->soap)) {
+            $this->soap = new SoapCurl($this->certificate);
+        }
+        $msgSize = strlen($request);
+        $parameters = [
+            "Content-Type: text/xml;charset=UTF-8",
+            "SOAPAction: \"$action\"",
+            "Content-length: $msgSize"
+        ];
+        return (string) $this->soap->send(
+            $operation,
+            $url,
+            $action,
+            $request,
+            $parameters
+        );
     }
     
+    /**
+     *
+     * @param string $message
+     * @param string $operation
+     * @return string
+     */
     protected function createSoapRequest($message, $operation)
     {
         return "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
@@ -99,7 +153,11 @@ class Tools
             . "</soap:Envelope>";
     }
 
-
+    /**
+     *
+     * @param RpsInterface $rps
+     * @return string
+     */
     protected function putPrestadorInRps(RpsInterface $rps)
     {
         $dom = new Dom('1.0', 'UTF-8');

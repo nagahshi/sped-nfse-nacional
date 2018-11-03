@@ -189,7 +189,7 @@ class Tools extends BaseTools
         $xmlsigned = $this->sign($xmlsigned, 'InfRps', 'Id');
         
         $contentmsg = "<GerarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
-            . "<LoteRps Id=\"$lote\" versao=\"{$this->config->version}\">"
+            . "<LoteRps Id=\"$lote\" versao=\"{$this->wsobj->version}\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
             . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
