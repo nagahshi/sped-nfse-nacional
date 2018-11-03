@@ -26,8 +26,8 @@ class Tools extends BaseTools
     public function cancelarNfse($id, $numero, $codigo = self::ERRO_EMISSAO)
     {
         $operation = 'CancelarNfse';
-        $message = "<CancelarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
-            . "<Pedido xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $message = "<CancelarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
+            . "<Pedido xmlns=\"{$this->wsobj->msgns}\">"
             . "<InfPedidoCancelamento Id=\"$id\">"
             . "<IdentificacaoNfse>"
             . "<Numero>$numero</Numero>"
@@ -54,7 +54,7 @@ class Tools extends BaseTools
     public function consultarLoteRps($protocolo)
     {
         $operation = 'ConsultarLoteRps';
-        $content = "<ConsultarLoteRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $content = "<ConsultarLoteRpsEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . $this->prestador
             . "<Protocolo>$protocolo</Protocolo>"
             . "</ConsultarLoteRpsEnvio>";
@@ -73,7 +73,7 @@ class Tools extends BaseTools
     public function consultarNfse($dini, $dfim, $tomadorCnpj = null, $tomadorCpf = null, $tomadorIM = null)
     {
         $operation = 'ConsultarNfse';
-        $content = "<ConsultarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $content = "<ConsultarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . $this->prestador
             . "<PeriodoEmissao>"
             . "<DataInicial>$dini</DataInicial>"
@@ -104,7 +104,7 @@ class Tools extends BaseTools
     public function consultarNfsePorFaixa($nini, $nfim, $pagina = 1)
     {
         $operation = 'ConsultarNfseFaixa';
-        $content = "<ConsultarNfseFaixaEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $content = "<ConsultarNfseFaixaEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . $this->prestador
             . "<Faixa>"
             . "<NumeroNfseInicial>$nini</NumeroNfseInicial>"
@@ -126,7 +126,7 @@ class Tools extends BaseTools
     public function consultarNfsePorRps($numero, $serie, $tipo)
     {
         $operation = "ConsultarNfseRps";
-        $content = "<ConsultarNfseRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $content = "<ConsultarNfseRpsEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . "<IdentificacaoRps>"
             . "<Numero>$numero</Numero>"
             . "<Serie>$serie</Serie>"
@@ -158,7 +158,7 @@ class Tools extends BaseTools
             $xmlsigned = $this->sign($xml, 'InfRps', 'Id');
             $content .= $xmlsigned;
         }
-        $contentmsg = "<EnviarLoteRpsEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $contentmsg = "<EnviarLoteRpsEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . "<LoteRps Id=\"$lote\" versao=\"{$this->wsobj->version}\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
@@ -188,7 +188,7 @@ class Tools extends BaseTools
         $xmlsigned = $this->putPrestadorInRps($rps);
         $xmlsigned = $this->sign($xmlsigned, 'InfRps', 'Id');
         
-        $contentmsg = "<GerarNfseEnvio xmlns=\"http://www.abrasf.org.br/nfse.xsd\">"
+        $contentmsg = "<GerarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . "<LoteRps Id=\"$lote\" versao=\"{$this->wsobj->version}\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
