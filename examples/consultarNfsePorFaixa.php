@@ -11,7 +11,8 @@ $config = [
     'im' => '1733160024',
     'cmun' => '4314902',
     'razao' => 'Empresa Test Ltda',
-    'version' => '1.0.0'
+    'version' => '1.00',
+    'tpamb' => 2
 ];
 
 $configJson = json_encode($config);

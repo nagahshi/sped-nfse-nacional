@@ -8,7 +8,7 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\SchemaStorage;
 use JsonSchema\Validator;
 
-$version = '1_0_0';
+$version = '1_00';
 
 $jsonSchema = '{
     "title": "RPS",
@@ -257,7 +257,7 @@ $jsonSchema = '{
 
 
 $std = new \stdClass();
-$std->version = '1.0.0';
+$std->version = '1.00';
 $std->identificacaorps = new \stdClass();
 $std->identificacaorps->numero = 11; //limite 15 digitos
 $std->identificacaorps->serie = '1'; //BH deve ser string numerico

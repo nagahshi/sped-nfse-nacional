@@ -2,6 +2,10 @@
     "title": "RPS",
     "type": "object",
     "properties": {
+        "version": {
+            "required": true,
+            "type": "string"
+        },
         "identificacaorps": {
             "required": true,
             "type": "object",

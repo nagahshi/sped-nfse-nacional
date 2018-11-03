@@ -12,7 +12,8 @@ $config = [
     'im' => '1733160024',
     'cmun' => '4314902',
     'razao' => 'Empresa Test Ltda',
-    'version' => '1.0.0'
+    'version' => '1.00',
+    'tpamb' => 2
 ];
 
 $configJson = json_encode($config);
@@ -25,7 +26,7 @@ $tools = new Tools($configJson, $cert);
 
 
 $std = new \stdClass();
-$std->version = '1.0.0';
+$std->version = '1.00';
 $std->IdentificacaoRps = new \stdClass();
 $std->IdentificacaoRps->Numero = 11; //limite 15 digitos
 $std->IdentificacaoRps->Serie = '1'; //BH deve ser string numerico
