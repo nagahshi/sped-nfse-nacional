@@ -30,7 +30,8 @@ $jsonSchema = '{
                 "serie": {
                     "required": true,
                     "type": "string",
-                    "maxLength": 5
+                    "maxLength": 5,
+                    "pattern": "^[0-9A-Za-z]{1,5}$"
                 },
                 "tipo": {
                     "required": true,
@@ -86,11 +87,14 @@ $jsonSchema = '{
                 "inscricaomunicipal": {
                     "required": false,
                     "type": ["string","null"],
-                    "maxLength": 14
+                    "minLength": 1,
+                    "maxLength": 15
                 },
                 "razaosocial": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 115
                 },
                 "endereco": {
                     "required": false,
@@ -98,19 +102,27 @@ $jsonSchema = '{
                     "properties": {
                         "endereco": {
                             "required": true,
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 125
                         },
                         "numero": {
                             "required": true,
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 10
                         },
                         "complemento": {
                             "required": true,
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 60
                         },
                         "bairro": {
                             "required": true,
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 60
                         },
                         "codigomunicipio": {
                             "required": true,
@@ -137,15 +149,21 @@ $jsonSchema = '{
             "properties": {
                 "itemlistaservico": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 5
                 },
                 "codigotributacaomunicipio": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
                 },
                 "discriminacao": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
                 },
                 "codigomunicipio": {
                     "required": true,
@@ -219,7 +237,9 @@ $jsonSchema = '{
             "properties": {
                 "razaosocial": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 115
                 },
                 "cnpj": {
                     "required": false,
@@ -234,7 +254,8 @@ $jsonSchema = '{
                 "inscricaomunicipal": {
                     "required": false,
                     "type": ["string","null"],
-                    "maxLength": 14
+                    "minLength": 1,
+                    "maxLength": 15
                 }
             }
         },
@@ -244,11 +265,15 @@ $jsonSchema = '{
             "properties": {
                 "codigoobra": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 15
                 },
                 "art": {
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 15
                 }
             }
         }

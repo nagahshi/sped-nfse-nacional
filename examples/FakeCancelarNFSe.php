@@ -12,9 +12,9 @@ try {
     $config = [
         'cnpj' => '99999999000191',
         'im' => '1733160024',
-        'cmun' => '4314902',
+        'cmun' => '4314902', //ira determinar as urls e outros dados
         'razao' => 'Empresa Test Ltda',
-        'tpamb' => 2
+        'tpamb' => 2 //1-producao, 2-homologacao
     ];
 
     $configJson = json_encode($config);
