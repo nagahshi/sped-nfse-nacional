@@ -82,12 +82,17 @@ class Tools extends BaseTools
             
         if ($tomadorCnpj || $tomadorCpf) {
             $content .= "<Tomador>"
-            . "<CpfCnpj>"
-            . !empty($tomadorCnpj) ? "<Cnpj>$tomadorCnpj</Cnpj>" : ""
-            . !empty($tomadorCpf) ? "<Cpf>$tomadorCpf</Cpf>" : ""
-            . "</CpfCnpj>"
-            . !empty($tomadorIM) ? "<InscricaoMunicipal>$tomadorIM</InscricaoMunicipal>" : ""
-            . "</Tomador>";
+            . "<CpfCnpj>";
+            if (isset($tomadorCnpj)) {    
+                $content .= "<Cnpj>$tomadorCnpj</Cnpj>";
+            } else {    
+                $content .= "<Cpf>$tomadorCpf</Cpf>";
+            }
+            $content .= "</CpfCnpj>";
+            if (isset($tomadorIM)) {
+                $content .= "<InscricaoMunicipal>$tomadorIM</InscricaoMunicipal>";
+            }
+            $content .= "</Tomador>";
         }
             $content .= "</ConsultarNfseEnvio>";
         
