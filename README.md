@@ -51,19 +51,25 @@ Este é um projeto totalmente *OpenSource*, para usa-lo e modifica-lo você não
 composer require nfephp-org/sped-nfse-nacional:dev-master
 ```
 
+*Ou ainda,*
+```bash
+composer require nfephp-org/sped-nfse-nacional:dev-master --prefer-dist
+```
+
 *Ou ainda alterando o composer.json do seu aplicativo inserindo:*
 ```json
 "require": {
-    "nfephp-org/sped-nfse-ncacional" : "dev-master"
+    "nfephp-org/sped-nfse-nacional" : "dev-master"
 }
 ```
 
 > NOTA: Ao utilizar este pacote ainda na fase de desenvolvimento não se esqueça de alterar o composer.json da sua aplicação para aceitar pacotes em desenvolvimento, alterando a propriedade "minimum-stability" de "stable" para "dev".
 > ```json
-> "minimum-stability": "dev"
+> "minimum-stability": "dev",
+> "prefer-stable": true
 > ```
 
-*Após os stable realeases estarem disponíveis, pode ser instalado com:*
+*Após os stable realeases estarem disponíveis, este pacote poderá ser instalado com:*
 ```bash
 composer require nfephp-org/sped-nfse-nacional
 ```
