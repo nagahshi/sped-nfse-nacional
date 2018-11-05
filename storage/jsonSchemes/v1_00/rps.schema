@@ -48,7 +48,7 @@
             "type": "integer",
             "pattern": "^[1-2]{1}"
         },
-        "incentivocultural": {
+        "incentivadorcultural": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-2]{1}"
