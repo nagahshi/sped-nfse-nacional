@@ -60,7 +60,7 @@ $jsonSchema = '{
             "type": "integer",
             "pattern": "^[1-2]{1}"
         },
-        "incentivocultural": {
+        "incentivadorcultural": {
             "required": true,
             "type": "integer",
             "pattern": "^[1-2]{1}"
@@ -303,7 +303,7 @@ $std->regimeespecialtributacao = 1;    // 1 – Microempresa municipal
                                        // 6 – ME EPP – Simples Nacional
 
 $std->optantesimplesnacional = 1; //1 - SIM 2 - Não
-$std->incentivocultural = 2; //1 - SIM 2 - Não
+$std->incentivadorcultural = 2; //1 - SIM 2 - Não
 $std->status = 1;  // 1 – Normal  2 – Cancelado
 
 $std->tomador = new \stdClass();
