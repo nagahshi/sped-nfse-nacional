@@ -140,15 +140,15 @@ class Tools
      */
     protected function createSoapRequest($message, $operation)
     {
-        $env = "<soapenv:Envelope  xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        $env = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ws=\"{$this->wsobj->soapns}\">"
             . "<soapenv:Header/>"
             . "<soapenv:Body>"
-            . "<ns2:{$operation}Request xmlns:ns2=\"{$this->wsobj->soapns}\">"
+            . "<ws:{$operation}Request>"
             . "<nfseCabecMsg>"
             . "</nfseCabecMsg>"
             . "<nfseDadosMsg>"
             . "</nfseDadosMsg>"
-            . "</ns2:{$operation}Request>"                
+            . "</ws:{$operation}Request>"                
             . "</soapenv:Body>"
             . "</soapenv:Envelope>";
         
