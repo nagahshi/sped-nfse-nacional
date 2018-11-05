@@ -1,5 +1,7 @@
 # sped-nfse-nacional
 
+[![Join the chat at https://gitter.im/nfephp-org/sped-nfse-nacional](https://badges.gitter.im/nfephp-org/sped-nfse-nacional.svg)](https://gitter.im/nfephp-org/sped-nfse-nacional?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Api para comunicação com webservices do Projeto NFSe Nacional
 
 ## Esta API esta sendo testada para Porto Alegre (apenas) e está em BETHA TESTES
