@@ -24,8 +24,8 @@ class Tools
         '4314902' => [
             'municipio' => 'Porto Alegre',
             'uf' => 'RS',
-            'homologacao' => 'http://nfse-hom.procempa.com.br/nfe-ws',
-            'producao' => 'http://nfe.portoalegre.rs.gov.br/nfe-ws',
+            'homologacao' => 'https://nfse-hom.procempa.com.br/bhiss-ws/nfse',
+            'producao' => 'https://nfe.portoalegre.rs.gov.br/bhiss-ws/nfse',
             'version' => '1.00',
             'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
             'soapns' => 'http://ws.bhiss.pbh.gov.br'
@@ -140,8 +140,40 @@ class Tools
      */
     protected function createSoapRequest($message, $operation)
     {
-        return "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-            . "<soap:body>"
+        $env = "<soapenv:Envelope  xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+            . "<soapenv:Header/>"
+            . "<soapenv:Body>"
+            . "<ns2:{$operation}Request xmlns:ns2=\"{$this->wsobj->soapns}\">"
+            . "<nfseCabecMsg>"
+            . "</nfseCabecMsg>"
+            . "<nfseDadosMsg>"
+            . "</nfseDadosMsg>"
+            . "</ns2:{$operation}Request>"                
+            . "</soapenv:Body>"
+            . "</soapenv:Envelope>";
+        
+        $cabecalho = "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"{$this->wsobj->version}\">"
+            . "<versaoDados>{$this->wsobj->version}</versaoDados>"
+            . "</cabecalho>";
+            
+        $dom = new Dom('1.0', 'UTF-8');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = false;
+        $dom->loadXML($env);
+        
+        $node = $dom->getElementsByTagName('nfseCabecMsg')->item(0);
+        $cdata = $dom->createCDATASection($cabecalho);
+        $node->appendChild($cdata);
+        
+        $node = $dom->getElementsByTagName('nfseDadosMsg')->item(0);
+        $cdata = $dom->createCDATASection($message);
+        $node->appendChild($cdata);
+        return $dom->saveXML($dom->documentElement);
+        
+        /*
+        return "<soapenv:Envelope  xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+            . "<soapenv:Header/>"
+            . "<soapenv:Body>"
             . "<ns2:{$operation}Request xmlns:ns2=\"{$this->wsobj->soapns}\">"
             . "<nfseCabecMsg>"
             . "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"{$this->wsobj->version}\">"
@@ -151,8 +183,10 @@ class Tools
             . $message
             . "</nfseDadosMsg>"
             . "</ns2:{$operation}Request>"
-            . "</soap:body>"
-            . "</soap:Envelope>";
+            . "</soapenv:Body>"
+            . "</soapenv:Envelope>";
+         * 
+         */
     }
 
     /**
