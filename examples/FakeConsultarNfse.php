@@ -15,7 +15,7 @@ try {
         'im' => '1733160024',
         'cmun' => '4314902',
         'razao' => 'Empresa Test Ltda',
-        'tpamb' => 2
+        'tpamb' => 1
     ];
 
     $configJson = json_encode($config);
@@ -30,11 +30,11 @@ try {
     $tools = new Tools($configJson, $cert);
     $tools->loadSoapClass($soap);
 
-    $dini = '2018-01-01';
-    $dfim = '2018-10-31';
-    $tomadorCnpj = '12345678901234';
-    $tomadorCpf = null;
-    $tomadorIM = null;
+    $dini = '2018-01-01'; //obrigatório
+    $dfim = '2018-10-31'; //obrigatório
+    $tomadorCnpj = '12345678901234'; //opcional
+    $tomadorCpf = null; //opcional
+    $tomadorIM = null; //opcional
     
 
     $response = $tools->consultarNfse($dini, $dfim, $tomadorCnpj, $tomadorCpf, $tomadorIM);

@@ -41,6 +41,11 @@ class Tools
         ]
     ];
     
+    /**
+     * Constructor
+     * @param string $config
+     * @param Certificate $cert
+     */
     public function __construct($config, Certificate $cert)
     {
         $this->config = json_decode($config);
@@ -79,7 +84,7 @@ class Tools
      * @param string $content
      * @param string $tagname
      * @param string $mark
-     * @return string
+     * @return string XML signed
      */
     public function sign($content, $tagname, $mark)
     {
@@ -97,10 +102,10 @@ class Tools
     }
     
     /**
-     *
+     * Send message to webservice
      * @param string $message
      * @param string $operation
-     * @return string
+     * @return string XML response from webservice
      */
     public function send($message, $operation)
     {
@@ -112,8 +117,6 @@ class Tools
         $request = $this->createSoapRequest($message, $operation);
         $this->lastRequest = $request;
         
-        
-        //TODO envio da mensagem SOAP para o webservice
         if (empty($this->soap)) {
             $this->soap = new SoapCurl($this->certificate);
         }
@@ -133,14 +136,16 @@ class Tools
     }
     
     /**
-     *
+     * Build SOAP request
      * @param string $message
      * @param string $operation
-     * @return string
+     * @return string XML SOAP request
      */
     protected function createSoapRequest($message, $operation)
     {
-        $env = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ws=\"{$this->wsobj->soapns}\">"
+        $env = "<soapenv:Envelope "
+            . "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" "
+            . "xmlns:ws=\"{$this->wsobj->soapns}\">"
             . "<soapenv:Header/>"
             . "<soapenv:Body>"
             . "<ws:{$operation}Request>"
@@ -148,7 +153,7 @@ class Tools
             . "</nfseCabecMsg>"
             . "<nfseDadosMsg>"
             . "</nfseDadosMsg>"
-            . "</ws:{$operation}Request>"                
+            . "</ws:{$operation}Request>"
             . "</soapenv:Body>"
             . "</soapenv:Envelope>";
         
@@ -169,30 +174,12 @@ class Tools
         $cdata = $dom->createCDATASection($message);
         $node->appendChild($cdata);
         return $dom->saveXML($dom->documentElement);
-        
-        /*
-        return "<soapenv:Envelope  xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-            . "<soapenv:Header/>"
-            . "<soapenv:Body>"
-            . "<ns2:{$operation}Request xmlns:ns2=\"{$this->wsobj->soapns}\">"
-            . "<nfseCabecMsg>"
-            . "<cabecalho xmlns=\"http://www.abrasf.org.br/nfse.xsd\" versao=\"{$this->wsobj->version}\">"
-            . "<versaoDados>{$this->wsobj->version}</versaoDados>"
-            . "</cabecalho></nfseCabecMsg>"
-            . "<nfseDadosMsg>"
-            . $message
-            . "</nfseDadosMsg>"
-            . "</ns2:{$operation}Request>"
-            . "</soapenv:Body>"
-            . "</soapenv:Envelope>";
-         * 
-         */
     }
 
     /**
-     *
+     * Create tag Prestador and insert into RPS xml
      * @param RpsInterface $rps
-     * @return string
+     * @return string RPS XML (not signed)
      */
     protected function putPrestadorInRps(RpsInterface $rps)
     {

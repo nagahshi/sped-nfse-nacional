@@ -83,9 +83,9 @@ class Tools extends BaseTools
         if ($tomadorCnpj || $tomadorCpf) {
             $content .= "<Tomador>"
             . "<CpfCnpj>";
-            if (isset($tomadorCnpj)) {    
+            if (isset($tomadorCnpj)) {
                 $content .= "<Cnpj>$tomadorCnpj</Cnpj>";
-            } else {    
+            } else {
                 $content .= "<Cpf>$tomadorCpf</Cpf>";
             }
             $content .= "</CpfCnpj>";
