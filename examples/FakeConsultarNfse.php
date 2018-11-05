@@ -35,6 +35,7 @@ try {
     $tomadorCnpj = '12345678901234';
     $tomadorCpf = null;
     $tomadorIM = null;
+    
 
     $response = $tools->consultarNfse($dini, $dfim, $tomadorCnpj, $tomadorCpf, $tomadorIM);
     
