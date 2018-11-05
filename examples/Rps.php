@@ -27,7 +27,7 @@ $std->RegimeEspecialTributacao = 1;    // 1 – Microempresa municipal
                                        // 6 – ME EPP – Simples Nacional
 
 $std->OptanteSimplesNacional = 1; //1 - SIM 2 - Não
-$std->IncentivoCultural = 2; //1 - SIM 2 - Não
+$std->IncentivadorCultural = 2; //1 - SIM 2 - Não
 $std->Status = 1;  // 1 – Normal  2 – Cancelado
 
 $std->Tomador = new \stdClass();
