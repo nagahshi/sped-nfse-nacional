@@ -42,6 +42,24 @@ Ainda iniciará com as cidades (segundo as fontes oficiais):
 - Maringá (PR) 
 - Marabá (PA)
 
+## Dependências
+
+- PHP >= 7.1
+- ext-curl
+- ext-soap
+- ext-zlib
+- ext-dom
+- ext-openssl
+- ext-json
+- ext-simplexml
+- ext-libxml
+
+### Outras Libs
+
+- nfephp-org/sped-common
+- justinrainbow/json-schema
+
+
 
 ## Contribuindo
 Este é um projeto totalmente *OpenSource*, para usa-lo e modifica-lo você não paga absolutamente nada. Porém para continuarmos a mante-lo é necessário qua alguma contribuição seja feita, seja auxiliando na codificação, na documentação ou na realização de testes e identificação de falhas e BUGs.

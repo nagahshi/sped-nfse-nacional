@@ -4,7 +4,7 @@ namespace NFePHP\NFSeNac\Common;
 
 /**
  * Class for identification of eletronic documents in xml
- * used for Sped EFD-Reinf comunications
+ * used for comunications an convertion to other formats
  *
  * @category  library
  * @package   NFePHP\NFSeNac
@@ -84,7 +84,7 @@ class Standardize
             }
         }
         throw new InvalidArgumentException(
-            "Este xml não pertence ao projeto eSocial."
+            "Este xml não pertence ao projeto NFSe Nacional."
         );
     }
     
