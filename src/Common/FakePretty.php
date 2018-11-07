@@ -3,7 +3,8 @@
 namespace NFePHP\NFSeNac\Common;
 
 /**
- * Class FakePretty shows event and fake comunication data for analises and debugging
+ * Class FakePretty shows event and fake comunication data
+ * for analises and debugging only
  *
  * @category  API
  * @package   NFePHP\NFseNac

@@ -2,6 +2,19 @@
 
 namespace NFePHP\NFSeNac\Common;
 
+/**
+ * Auxiar Tools Class for comunications with NFSe webserver in Nacional Standard
+ *
+ * @category  NFePHP
+ * @package   NFePHP\NFSeNac
+ * @copyright NFePHP Copyright (c) 2008-2018
+ * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
+ * @author    Roberto L. Machado <linux.rlm at gmail dot com>
+ * @link      http://github.com/nfephp-org/sped-nfse-nacional for the canonical source repository
+ */
+
 use NFePHP\Common\Certificate;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\Common\DOMImproved as Dom;
@@ -126,15 +139,31 @@ class Tools
             "SOAPAction: \"$action\"",
             "Content-length: $msgSize"
         ];
-        return (string) $this->soap->send(
+        $response = (string) $this->soap->send(
             $operation,
             $url,
             $action,
             $request,
             $parameters
         );
+        return $this->extractContentFromResponse($response);
     }
     
+    /**
+     * Extract xml response from CDATA outputXML tag
+     * @param string $response Return from webservice
+     * @return string XML extracted from response
+     */
+    protected function extractContentFromResponse($response)
+    {
+        $dom = new Dom('1.0', 'UTF-8');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = false;
+        $dom->loadXML($response);
+        $node = $dom->getElementsByTagName('outputXML')->item(0);
+        return $node->textContent;
+    }
+
     /**
      * Build SOAP request
      * @param string $message

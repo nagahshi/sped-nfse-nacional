@@ -2,15 +2,43 @@
 
 namespace NFePHP\NFSeNac\Common;
 
+/**
+ * Class for RPS XML convertion
+ *
+ * @category  NFePHP
+ * @package   NFePHP\NFSeNac
+ * @copyright NFePHP Copyright (c) 2008-2018
+ * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
+ * @author    Roberto L. Machado <linux.rlm at gmail dot com>
+ * @link      http://github.com/nfephp-org/sped-nfse-nacional for the canonical source repository
+ */
+
 use stdClass;
 use NFePHP\Common\DOMImproved as Dom;
+use DOMNode;
+use DOMElement;
 
 class Factory
 {
+    /**
+     * @var stdClass
+     */
     protected $std;
+    /**
+     * @var Dom
+     */
     protected $dom;
+    /**
+     * @var DOMNode
+     */
     protected $rps;
 
+    /**
+     * Constructor
+     * @param stdClass $std
+     */
     public function __construct(stdClass $std)
     {
         $this->std = $std;
@@ -21,6 +49,11 @@ class Factory
         $this->rps = $this->dom->createElement('Rps');
     }
     
+    /**
+     * Builder, converts sdtClass Rps in XML Rps
+     * NOTE: without Prestador Tag
+     * @return string RPS in XML string format
+     */
     public function render()
     {
         $infRps = $this->dom->createElement('InfRps');
@@ -28,7 +61,7 @@ class Factory
         $att->value = 'rps:'.$this->std->identificacaorps->numero.$this->std->identificacaorps->serie;
         $infRps->appendChild($att);
         
-        $this->identificacao($infRps);
+        $this->addIdentificacao($infRps);
         
         $this->dom->addChild(
             $infRps,
@@ -67,17 +100,21 @@ class Factory
             true
         );
         
-        $this->servico($infRps);
-        $this->tomador($infRps);
-        $this->intermediario($infRps);
-        $this->construcao($infRps);
+        $this->addServico($infRps);
+        $this->addTomador($infRps);
+        $this->addIntermediario($infRps);
+        $this->addConstrucao($infRps);
         
         $this->rps->appendChild($infRps);
         $this->dom->appendChild($this->rps);
         return $this->dom->saveXML();
     }
     
-    protected function identificacao(&$parent)
+    /**
+     * Includes Identificacao TAG in parent NODE
+     * @param DOMNode $parent
+     */
+    protected function addIdentificacao(&$parent)
     {
         $id = $this->std->identificacaorps;
         $node = $this->dom->createElement('IdentificacaoRps');
@@ -102,7 +139,11 @@ class Factory
         $parent->appendChild($node);
     }
     
-    protected function servico(&$parent)
+    /**
+     * Includes Servico TAG in parent NODE
+     * @param DOMNode $parent
+     */
+    protected function addServico(&$parent)
     {
         $serv = $this->std->servico;
         $val = $this->std->servico->valores;
@@ -236,7 +277,11 @@ class Factory
         $parent->appendChild($node);
     }
     
-    protected function tomador(&$parent)
+    /**
+     * Includes Tomador TAG in parent NODE
+     * @param DOMNode $parent
+     */
+    protected function addTomador(&$parent)
     {
         if (!isset($this->std->tomador)) {
             return;
@@ -323,7 +368,11 @@ class Factory
         $parent->appendChild($node);
     }
     
-    protected function intermediario(&$parent)
+    /**
+     * Includes Intermediario TAG in parent NODE
+     * @param DOMNode $parent
+     */
+    protected function addIntermediario(&$parent)
     {
         if (!isset($this->std->intermediarioservico)) {
             return;
@@ -362,7 +411,11 @@ class Factory
         $parent->appendChild($node);
     }
     
-    protected function construcao(&$parent)
+    /**
+     * Includes Construcao TAG in parent NODE
+     * @param DOMNode $parent
+     */
+    protected function addConstrucao(&$parent)
     {
         if (!isset($this->std->construcaocivil)) {
             return;
