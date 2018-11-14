@@ -28,7 +28,9 @@ class Tools extends BaseTools
     public function __construct($config, Certificate $cert)
     {
         parent::__construct($config, $cert);
-        $path = realpath('../storage/schemes');
+        $path = realpath(
+            __DIR__ . '/../storage/schemes'
+        );
         $this->xsdpath = $path . '/v1_00/nfse_v20_08_2015.xsd';
     }
     
