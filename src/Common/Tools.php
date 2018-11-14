@@ -146,7 +146,7 @@ class Tools
             $request,
             $parameters
         );
-        return $this->extractContentFromResponse($response);
+        return $this->extractContentFromResponse($response, $operation);
     }
     
     /**
@@ -154,14 +154,17 @@ class Tools
      * @param string $response Return from webservice
      * @return string XML extracted from response
      */
-    protected function extractContentFromResponse($response)
+    protected function extractContentFromResponse($response, $operation)
     {
         $dom = new Dom('1.0', 'UTF-8');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = false;
         $dom->loadXML($response);
-        $node = $dom->getElementsByTagName('outputXML')->item(0);
-        return $node->textContent;
+        if (!empty($dom->getElementsByTagName('outputXML')->item(0))) {
+            $node = $dom->getElementsByTagName('outputXML')->item(0);
+            return $node->textContent;
+        }
+        return $response;
     }
 
     /**

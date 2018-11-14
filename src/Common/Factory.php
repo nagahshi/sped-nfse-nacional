@@ -58,7 +58,7 @@ class Factory
     {
         $infRps = $this->dom->createElement('InfRps');
         $att = $this->dom->createAttribute('Id');
-        $att->value = 'rps:'.$this->std->identificacaorps->numero.$this->std->identificacaorps->serie;
+        $att->value = 'rps'.$this->std->identificacaorps->numero.$this->std->identificacaorps->serie;
         $infRps->appendChild($att);
         
         $this->addIdentificacao($infRps);

@@ -18,6 +18,7 @@ namespace NFePHP\NFSeNac;
 use NFePHP\NFSeNac\Common\Tools as BaseTools;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\Common\Certificate;
+use NFePHP\Common\Validator;
 
 class Tools extends BaseTools
 {
@@ -27,6 +28,8 @@ class Tools extends BaseTools
     public function __construct($config, Certificate $cert)
     {
         parent::__construct($config, $cert);
+        $path = realpath('../storage/schemes');
+        $this->xsdpath = $path . '/v1_00/nfse_v20_08_2015.xsd';
     }
     
     /**
@@ -39,8 +42,7 @@ class Tools extends BaseTools
     public function cancelarNfse($id, $numero, $codigo = self::ERRO_EMISSAO)
     {
         $operation = 'CancelarNfse';
-        $message = "<CancelarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
-            . "<Pedido xmlns=\"{$this->wsobj->msgns}\">"
+        $pedido = "<Pedido xmlns=\"{$this->wsobj->msgns}\">"
             . "<InfPedidoCancelamento Id=\"$id\">"
             . "<IdentificacaoNfse>"
             . "<Numero>$numero</Numero>"
@@ -50,9 +52,13 @@ class Tools extends BaseTools
             . "</IdentificacaoNfse>"
             . "<CodigoCancelamento>$codigo</CodigoCancelamento>"
             . "</InfPedidoCancelamento>"
-            . "</Pedido>"
+            . "</Pedido>";
+        
+        $signed = $this->sign($pedido, 'InfPedidoCancelamento', 'Id');
+        $content = "<CancelarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
+            . $signed
             . "</CancelarNfseEnvio>";
-        $content = $this->sign($message, 'InfPedidoCancelamento', 'Id');
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
     
@@ -71,6 +77,7 @@ class Tools extends BaseTools
             . $this->prestador
             . "<Protocolo>$protocolo</Protocolo>"
             . "</ConsultarLoteRpsEnvio>";
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
     
@@ -107,8 +114,8 @@ class Tools extends BaseTools
             }
             $content .= "</Tomador>";
         }
-            $content .= "</ConsultarNfseEnvio>";
-        
+        $content .= "</ConsultarNfseEnvio>";
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
     
@@ -130,7 +137,7 @@ class Tools extends BaseTools
             . "</Faixa>"
             . "<Pagina>$pagina</Pagina>"
             . "</ConsultarNfseFaixaEnvio>";
-        
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
     
@@ -152,7 +159,7 @@ class Tools extends BaseTools
             . "</IdentificacaoRps>"
             . $this->prestador
             . "</ConsultarNfseRpsEnvio>";
-        
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
     
@@ -189,7 +196,7 @@ class Tools extends BaseTools
             . "</EnviarLoteRpsEnvio>";
         
         $content = $this->sign($contentmsg, 'LoteRps', 'Id');
-            
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
     
@@ -218,7 +225,7 @@ class Tools extends BaseTools
             . "</LoteRps>"
             . "</GerarNfseEnvio>";
         $content = $this->sign($contentmsg, 'LoteRps', 'Id');
-        
+        Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
 }
