@@ -104,7 +104,7 @@ try {
     
     $arps[] = new Rps($std);
     
-    $lote = 'L123456';
+    $lote = '123456';
     $response = $tools->recepcionarLoteRps($arps, $lote);
     
     echo FakePretty::prettyPrint($response, '');
