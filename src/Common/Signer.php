@@ -118,6 +118,8 @@ class Signer
         $idSigned = trim($node->getAttribute($mark));
         $digestValue = self::makeDigest($node, $digestAlgorithm, $canonical);
         $signatureNode = $dom->createElementNS($nsDSIG, 'Signature');
+        $signatureNode->setAttribute('Id', 'Ass_'.$idSigned);
+        
         $root->appendChild($signatureNode);
         $signedInfoNode = $dom->createElement('SignedInfo');
         $signatureNode->appendChild($signedInfoNode);
@@ -138,9 +140,9 @@ class Signer
         $transfNode1 = $dom->createElement('Transform');
         $transformsNode->appendChild($transfNode1);
         $transfNode1->setAttribute('Algorithm', $nsTransformMethod1);
-        //$transfNode2 = $dom->createElement('Transform');
-        //$transformsNode->appendChild($transfNode2);
-        //$transfNode2->setAttribute('Algorithm', $nsTransformMethod2);
+        $transfNode2 = $dom->createElement('Transform');
+        $transformsNode->appendChild($transfNode2);
+        $transfNode2->setAttribute('Algorithm', $nsTransformMethod2);
         $digestMethodNode = $dom->createElement('DigestMethod');
         $referenceNode->appendChild($digestMethodNode);
         $digestMethodNode->setAttribute('Algorithm', $nsDigestMethod);

@@ -113,8 +113,8 @@ $jsonSchema = '{
                             "maxLength": 10
                         },
                         "complemento": {
-                            "required": true,
-                            "type": "string",
+                            "required": false,
+                            "type": ["string","null"],
                             "minLength": 1,
                             "maxLength": 60
                         },
