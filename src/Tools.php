@@ -25,13 +25,15 @@ class Tools extends BaseTools
     const ERRO_EMISSAO = 1;
     const SERVICO_NAO_CONCLUIDO = 2;
     
+    protected $xsdpath;
+    
     public function __construct($config, Certificate $cert)
     {
         parent::__construct($config, $cert);
         $path = realpath(
             __DIR__ . '/../storage/schemes'
         );
-        $this->xsdpath = $path . '/v1_00/nfse_v20_08_2015.xsd';
+        $this->xsdpath = $path . '/nfse_v20_08_2015.xsd';
     }
     
     /**
@@ -130,7 +132,7 @@ class Tools extends BaseTools
      */
     public function consultarNfsePorFaixa($nini, $nfim, $pagina = 1)
     {
-        $operation = 'ConsultarNfseFaixa';
+        $operation = 'ConsultarNfsePorFaixa';
         $content = "<ConsultarNfseFaixaEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . $this->prestador
             . "<Faixa>"
@@ -152,7 +154,7 @@ class Tools extends BaseTools
      */
     public function consultarNfsePorRps($numero, $serie, $tipo)
     {
-        $operation = "ConsultarNfseRps";
+        $operation = "ConsultarNfsePorRps";
         $content = "<ConsultarNfseRpsEnvio xmlns=\"{$this->wsobj->msgns}\">"
             . "<IdentificacaoRps>"
             . "<Numero>$numero</Numero>"
