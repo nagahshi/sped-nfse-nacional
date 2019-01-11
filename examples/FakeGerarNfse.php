@@ -45,7 +45,7 @@ try {
                                 // 5 – Exigibilidade suspensa por decisão judicial
                                 // 6 – Exigibilidade suspensa por procedimento administrativo
 
-    $std->RegimeEspecialTributacao = 1;    // 1 – Microempresa municipal
+    $std->RegimeEspecialTributacao = 3;    // 1 – Microempresa municipal
                                            // 2 - Estimativa
                                            // 3 – Sociedade de profissionais
                                            // 4 – Cooperativa
