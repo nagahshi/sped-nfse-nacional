@@ -53,13 +53,13 @@ class Tools
             'soapns' => 'http://ws.bhiss.pbh.gov.br'
         ],
         "3304557" => [
-            "municipio"     => "Rio de Janeiro",
-            "uf"            => "RJ",
-            "homologacao"   => "https://homologacao.notacarioca.rio.gov.br/WSNacional/nfse.asmx",
-            "producao"      => "https://notacarioca.rio.gov.br/WSNacional/nfse.asmx",
-            "version"       => "1.00",
-            'msgns'         => 'http://www.abrasf.org.br/nfse.xsd',
-            "soapns"        => "http://notacarioca.rio.gov.br/"
+            "municipio" => "Rio de Janeiro",
+            "uf" => "RJ",
+            "homologacao" => "https://homologacao.notacarioca.rio.gov.br/WSNacional/nfse.asmx",
+            "producao" => "https://notacarioca.rio.gov.br/WSNacional/nfse.asmx",
+            "version" => "1.00",
+            'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
+            "soapns" => "http://notacarioca.rio.gov.br/"
         ]
     ];
     
