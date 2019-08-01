@@ -46,9 +46,7 @@ class Rps implements RpsInterface
     }
     
     /**
-     * Convert Rps::class data in XML
-     * @param stdClass $rps
-     * @return string
+     * {@inheritdoc}
      */
     public function render(stdClass $rps = null)
     {
