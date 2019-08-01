@@ -92,32 +92,33 @@ class RpsTest extends TestCase
 
     public function testInterfaceImplementation()
     {
-        $interface = new ReflectionClass(RpsInterface::class);
-        $class     = new ReflectionClass(Rps::class);
-        
-        $interfaceMethods = $interface->getMethods(ReflectionMethod::IS_PUBLIC);
+        $class = new ReflectionClass(Rps::class);
 
-        foreach ($interfaceMethods as $interfaceMethod) {
-            $methodName = $interfaceMethod->getName();
-            $parameters = $interfaceMethod->getParameters();
+        foreach ($class->getInterfaces() as $interface) {
+            $interfaceMethods = $interface->getMethods(ReflectionMethod::IS_PUBLIC);
 
-            $classMethod = $class->getMethod($methodName);
-            $childParameters = $classMethod->getParameters();
+            foreach ($interfaceMethods as $interfaceMethod) {
+                $methodName = $interfaceMethod->getName();
+                $parameters = $interfaceMethod->getParameters();
 
-            $failMessage = sprintf(
-                'A assinatura do método %s::%s precisa estar igual na interface %s::%s.',
-                $class->name,
-                $methodName,
-                $interface->name,
-                $methodName
-            );
+                $classMethod = $class->getMethod($methodName);
+                $childParameters = $classMethod->getParameters();
 
-            if (empty($parameters)) {
-                $this->assertEmpty($childParameters, $failMessage);
-            }
+                $failMessage = sprintf(
+                    'A assinatura do método %s::%s precisa estar igual na interface %s::%s.',
+                    $class->name,
+                    $methodName,
+                    $interface->name,
+                    $methodName
+                );
 
-            foreach ($parameters as $index => $parameter) {
-                $this->assertEquals($parameter->__toString(), $childParameters[$index]->__toString(), $failMessage);
+                if (empty($parameters)) {
+                    $this->assertEmpty($childParameters, $failMessage);
+                }
+
+                foreach ($parameters as $index => $parameter) {
+                    $this->assertEquals($parameter->__toString(), $childParameters[$index]->__toString(), $failMessage);
+                }
             }
         }
     }
