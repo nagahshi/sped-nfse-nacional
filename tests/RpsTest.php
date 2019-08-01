@@ -3,7 +3,6 @@
 namespace NFePHP\NFSeNac\Tests;
 
 use NFePHP\NFSeNac\Rps;
-use NFePHP\NFSeNac\RpsInterface;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
