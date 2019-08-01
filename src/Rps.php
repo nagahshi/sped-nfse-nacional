@@ -16,7 +16,6 @@ namespace NFePHP\NFSeNac;
  */
 
 use stdClass;
-use NFePHP\Common\Certificate;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\NFSeNac\Common\Factory;
 use JsonSchema\Validator as JsonValid;
