@@ -15,7 +15,14 @@ namespace NFePHP\NFSeNac;
  * @link      http://github.com/nfephp-org/sped-nfse-nacional for the canonical source repository
  */
 
+use stdClass;
+
 interface RpsInterface
 {
-    public function render();
+    /**
+     * Convert Rps::class data in XML
+     * @param stdClass $rps
+     * @return string
+     */
+    public function render(stdClass $rps = null);
 }

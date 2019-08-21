@@ -16,7 +16,6 @@ namespace NFePHP\NFSeNac;
  */
 
 use stdClass;
-use NFePHP\Common\Certificate;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\NFSeNac\Common\Factory;
 use JsonSchema\Validator as JsonValid;
@@ -46,9 +45,7 @@ class Rps implements RpsInterface
     }
     
     /**
-     * Convert Rps::class data in XML
-     * @param stdClass $rps
-     * @return string
+     * {@inheritdoc}
      */
     public function render(stdClass $rps = null)
     {

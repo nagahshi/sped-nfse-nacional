@@ -4,6 +4,8 @@ namespace NFePHP\NFSeNac\Tests;
 
 use NFePHP\NFSeNac\Rps;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
 
 class RpsTest extends TestCase
 {
@@ -85,5 +87,38 @@ class RpsTest extends TestCase
         $expectedXml = file_get_contents($this->fixturesPath . 'rps_1_00.xml');
         //$this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
         $this->assertTrue(true);
+    }
+
+    public function testInterfaceImplementation()
+    {
+        $class = new ReflectionClass(Rps::class);
+
+        foreach ($class->getInterfaces() as $interface) {
+            $interfaceMethods = $interface->getMethods(ReflectionMethod::IS_PUBLIC);
+
+            foreach ($interfaceMethods as $interfaceMethod) {
+                $methodName = $interfaceMethod->getName();
+                $parameters = $interfaceMethod->getParameters();
+
+                $classMethod = $class->getMethod($methodName);
+                $childParameters = $classMethod->getParameters();
+
+                $failMessage = sprintf(
+                    'A assinatura do método %s::%s precisa estar igual na interface %s::%s.',
+                    $class->name,
+                    $methodName,
+                    $interface->name,
+                    $methodName
+                );
+
+                if (empty($parameters)) {
+                    $this->assertEmpty($childParameters, $failMessage);
+                }
+
+                foreach ($parameters as $index => $parameter) {
+                    $this->assertEquals($parameter->__toString(), $childParameters[$index]->__toString(), $failMessage);
+                }
+            }
+        }
     }
 }
