@@ -474,7 +474,7 @@ abstract class SoapBase implements SoapInterface
         if (!empty($this->certificate)) {
             $cnpj = $this->certificate->getCnpj();
         }
-        $this->debugdir = $cnpj() . '/debug/';
+        $this->debugdir = $cnpj . '/debug/';
         $now = \DateTime::createFromFormat('U.u', microtime(true));
         $time = substr($now->format("ymdHisu"), 0, 16);
         try {
