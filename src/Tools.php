@@ -176,7 +176,7 @@ class Tools extends BaseTools
      */
     public function recepcionarLoteRps($arps, $lote)
     {
-        $operation = 'EnviarLoteRps';
+        $operation = 'RecepcionarLoteRps';
         $no_of_rps_in_lot = count($arps);
         if ($no_of_rps_in_lot > 50) {
             throw new \Exception('O limite é de 50 RPS por lote enviado.');
