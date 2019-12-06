@@ -14,7 +14,7 @@ try {
     $config = [
         'cnpj' => '99999999000191',
         'im' => '1733160024',
-        'cmun' => '4314902',
+        'cmun' => '3304557',
         'razao' => 'Empresa Test Ltda',
         'tpamb' => 2
     ];

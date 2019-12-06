@@ -33,36 +33,6 @@ class Tools
     protected $soap;
     protected $environment;
     
-    protected $urls = [
-        '4314902' => [
-            'municipio' => 'Porto Alegre',
-            'uf' => 'RS',
-            'homologacao' => 'https://nfse-hom.procempa.com.br/bhiss-ws/nfse',
-            'producao' => 'https://nfe.portoalegre.rs.gov.br/bhiss-ws/nfse',
-            'version' => '1.00',
-            'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
-            'soapns' => 'http://ws.bhiss.pbh.gov.br'
-        ],
-        '3106200' => [
-            'municipio' => 'Belo Horizonte',
-            'uf' => 'MG',
-            'homologacao' => 'https://bhisshomologa.pbh.gov.br/bhiss-ws/nfse',
-            'producao' => 'https://bhissdigital.pbh.gov.br/bhiss-ws/nfse',
-            'version' => '1.00',
-            'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
-            'soapns' => 'http://ws.bhiss.pbh.gov.br'
-        ],
-        "3304557" => [
-            "municipio" => "Rio de Janeiro",
-            "uf" => "RJ",
-            "homologacao" => "https://homologacao.notacarioca.rio.gov.br/WSNacional/nfse.asmx",
-            "producao" => "https://notacarioca.rio.gov.br/WSNacional/nfse.asmx",
-            "version" => "1.00",
-            'msgns' => 'http://www.abrasf.org.br/nfse.xsd',
-            "soapns" => "http://notacarioca.rio.gov.br/"
-        ]
-    ];
-    
     /**
      * Constructor
      * @param string $config
@@ -73,14 +43,30 @@ class Tools
         $this->config = json_decode($config);
         $this->certificate = $cert;
         $this->buildPrestadorTag();
-        $wsobj = $this->urls;
-        $this->wsobj = json_decode(json_encode($this->urls[$this->config->cmun]));
+        $this->wsobj = $this->loadWsobj($this->config->cmun);
         $this->environment = 'homologacao';
         if ($this->config->tpamb === 1) {
             $this->environment = 'producao';
         }
     }
     
+    /**
+     * load webservice parameters  
+     * @param string $cmun
+     * @return object
+     * @throws \Exception
+     */
+    protected function loadWsobj($cmun)
+    {
+        $path = realpath(__DIR__ . "/../../storage/urls_webservices.json");
+        $urls = json_decode(file_get_contents($path), true);
+        if (empty($urls[$cmun])) {
+            throw new \Exception("Não localizado parâmetros para esse municipio.");
+        }
+        return (object) $urls[$cmun];
+    }
+
+
     /**
      * SOAP communication dependency injection
      * @param SoapInterface $soap
@@ -135,6 +121,10 @@ class Tools
         $url = $this->wsobj->homologacao;
         if ($this->environment === 'producao') {
             $url = $this->wsobj->producao;
+        }
+        if (empty($url)) {
+            throw new \Exception("Não está registrada a URL para o ambiente "
+                . "de {$this->environment} desse municipio.");
         }
         $request = $this->createSoapRequest($message, $operation);
         $this->lastRequest = $request;
