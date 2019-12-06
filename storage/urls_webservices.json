@@ -1,11 +1,11 @@
 {
-    "4314902": {
-        "municipio": "Porto Alegre",
-        "uf": "RS",
-        "homologacao": "http:\/\/nfse-hom.procempa.com.br\/nfe-ws",
-        "producao": "http:\/\/nfe.portoalegre.rs.gov.br\/nfe-ws",
+    "2611606": {
+        "municipio": "Recife",
+        "uf": "PE",
+        "homologacao": "",
+        "producao": "https:\/\/nfse.recife.pe.gov.br\/WSNacional\/nfse_v01.asmx",
         "version": "1.00",
-        "soapns": "http:\/\/ws.bhiss.pbh.gov.br"
+        "soapns": "http://www.nfe.com.br"
     },
     "3106200": {
         "municipio": "Belo Horizonte",
@@ -15,12 +15,92 @@
         "version": "1.00",
         "soapns": "http:\/\/ws.bhiss.pbh.gov.br"
     },
+    "3136702": {
+        "municipio": "Juiz de Fora",
+        "uf": "MG",
+        "homologacao": "http:\/\/nfejf.portalfacil.com.br\/homologacao\/webservice\/servicos",
+        "producao": " http:\/\/nfejf.portalfacil.com.br\/nfseserv\/webservice/servicos",
+        "version": "1.00",
+        "soapns": "http:\/\/nfejf.portalfacil.com.br\/homologacao\/webservice\/servicos"
+    },
     "3304557": {
         "municipio": "Rio de Janeiro",
         "uf": "RJ",
         "homologacao": "http:\/\/homologacao.notacarioca.rio.gov.br\/WSNacional\/nfse.asmx",
         "producao": "http:\/\/notacarioca.rio.gov.br\/WSNacional\/nfse.asmx",
         "version": "1.00",
-        "soapns": "http:\/\/notacarioca.rio.gov.br\/"
+        "soapns": "http:\/\/notacarioca.rio.gov.br"
+    },
+    "3300100": {
+        "municipio": "Angra dos Reis",
+        "uf": "RJ",
+        "homologacao": "",
+        "producao": "https:\/\/www.spe.angra.rj.gov.br\/nfse\/WSNacional\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "3301702": {
+        "municipio": "Duque de Caxias",
+        "uf": "RJ",
+        "homologacao": "",
+        "producao": "https:\/\/spe.duquedecaxias.rj.gov.br\/nfse\/WSNacional\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "3302007": {
+        "municipio": "Itaguaí",
+        "uf": "RJ",
+        "homologacao": "",
+        "producao": "https:\/\/spe.itaguai.rj.gov.br\/nfse\/WSNacional\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "3302403": {
+        "municipio": "Macaé",
+        "uf": "RJ",
+        "homologacao": "",
+        "producao": "https:\/\/spe.macae.rj.gov.br\/nfse\/WSNacional\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "3302601": {
+        "municipio": "Mangaratiba",
+        "uf": "RJ",
+        "homologacao": "",
+        "producao": "https:\/\/spe.mangaratiba.rj.gov.br\/nfse/WSNacional\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "3303302": {
+        "municipio": "Niteroí",
+        "uf": "RJ",
+        "homologacao": "https:\/\/niteroihomologacao.nfe.com.br\/nfse\/WSNacional2\/nfse.asmx",
+        "producao": "https:\/\/nfse.niteroi.rj.gov.br\/nfse\/WSNacional2\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/nfse.abrasf.org.br"
+    },
+    "3304524": {
+        "municipio": "Rio das Ostras",
+        "uf": "RJ",
+        "homologacao": "",
+        "producao": "https:\/\/spe.riodasostras.rj.gov.br\/nfse\/WSNacional\/nfse.asmx",
+        "version": "",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "3501608": {
+        "municipio": "Americana",
+        "uf": "SP",
+        "homologacao": "",
+        "producao": "https:\/\/nfse.americana.sp.gov.br\/nfse\/WSNacional\/nfse.asmx",
+        "version": "1.00",
+        "soapns": "http:\/\/www.nfe.com.br"
+    },
+    "4314902": {
+        "municipio": "Porto Alegre",
+        "uf": "RS",
+        "homologacao": "http:\/\/nfse-hom.procempa.com.br\/nfe-ws",
+        "producao": "http:\/\/nfe.portoalegre.rs.gov.br\/nfe-ws",
+        "version": "1.00",
+        "soapns": "http:\/\/ws.bhiss.pbh.gov.br"
     }
 }

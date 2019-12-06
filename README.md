@@ -30,17 +30,23 @@ Este pacote é aderente com os [PSR-1], [PSR-2] e [PSR-4]. Se você observar neg
 
 Não deixe de se cadastrar no [grupo de discussão do NFePHP](http://groups.google.com/group/nfephp) para acompanhar o desenvolvimento e participar das discussões e tirar duvidas!
 
-O "Projeto Piloto" está com certeza sendo aplicado a:
+**NOTA: Fique atento pois nem todas as cidades possuem ambientes de homologação.**
 
+## Cidades já atendidas (podem ainda ser necessários alguns ajustes)
+
+- Recife (PE)
 - Belo Horizonte (MG)
-- Porto Alegre (RS)
-
-Ainda iniciará com as cidades (segundo as fontes oficiais):  
-
+- Juiz de Fora (MG)
 - Rio de Janeiro (RJ)
-- São Paulo (SP)
-- Maringá (PR) 
-- Marabá (PA)
+- Angra dos Reis (RJ)
+- Duque de Caxias (RJ)
+- Itaguaí (RJ)
+- Macaé (RJ)
+- Mangaratiba (RJ)
+- Niteroí (RJ)
+- Rio das Ostras (RJ)
+- Americana (SP)
+- Porto Alegre (RS)
 
 ## Dependências
 
@@ -58,8 +64,6 @@ Ainda iniciará com as cidades (segundo as fontes oficiais):
 
 - nfephp-org/sped-common
 - justinrainbow/json-schema
-
-
 
 ## Contribuindo
 Este é um projeto totalmente *OpenSource*, para usa-lo e modifica-lo você não paga absolutamente nada. Porém para continuarmos a mante-lo é necessário qua alguma contribuição seja feita, seja auxiliando na codificação, na documentação ou na realização de testes e identificação de falhas e BUGs.
