@@ -51,7 +51,7 @@ class Tools
     }
     
     /**
-     * load webservice parameters  
+     * load webservice parameters
      * @param string $cmun
      * @return object
      * @throws \Exception
