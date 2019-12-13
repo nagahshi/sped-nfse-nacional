@@ -46,7 +46,7 @@ class Factory
         $this->dom = new Dom('1.0', 'UTF-8');
         $this->dom->preserveWhiteSpace = false;
         $this->dom->formatOutput = false;
-        $this->rps = $this->dom->createElement('Rps');
+        $this->rps = $this->dom->createElementNS('http://www.abrasf.org.br/nfse.xsd', 'Rps');
     }
     
     /**
