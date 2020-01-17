@@ -188,7 +188,7 @@ class Tools extends BaseTools
             $content .= $xmlsigned;
         }
         $contentmsg = "<EnviarLoteRpsEnvio xmlns=\"{$this->wsobj->msgns}\">"
-            . "<LoteRps Id=\"$lote\" versao=\"{$this->wsobj->version}\">"
+            . "<LoteRps Id=\"Lote{$lote}\" versao=\"{$this->wsobj->version}\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
             . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
