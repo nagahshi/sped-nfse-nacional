@@ -34,6 +34,10 @@ class Rps implements RpsInterface
      * @var string
      */
     protected $jsonschema;
+    /**
+     * @var \stdClass
+     */
+    protected $config;
     
     /**
      * Constructor
@@ -45,12 +49,24 @@ class Rps implements RpsInterface
     }
     
     /**
+     * Add config
+     * @param stdClass $config
+     */
+    public function config(\stdClass $config)
+    {
+        $this->config = $config;
+    }
+    
+    /**
      * {@inheritdoc}
      */
     public function render(stdClass $rps = null)
     {
         $this->init($rps);
         $fac = new Factory($this->std);
+        if (!empty($this->config)) {
+            $fac->addConfig($this->config);
+        }
         return $fac->render();
     }
     

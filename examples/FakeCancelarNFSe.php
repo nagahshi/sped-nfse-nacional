@@ -32,7 +32,7 @@ try {
     $id = 'C201800000000001';
     $numero = '201800000000001';
     
-    $response = $tools->cancelarNfse($id, $numero, $tools::ERRO_EMISSAO);
+    $response = $tools->cancelarNfse($id, $numero, $tools::CANCEL_ERRO_EMISSAO);
 
     echo FakePretty::prettyPrint($response, '');
  

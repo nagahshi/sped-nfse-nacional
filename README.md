@@ -1,10 +1,13 @@
 # sped-nfse-nacional
 
+# Retorno ao status PRE-ALFA (não use em produção)
+
 [![Join the chat at https://gitter.im/nfephp-org/sped-nfse-nacional](https://badges.gitter.im/nfephp-org/sped-nfse-nacional.svg)](https://gitter.im/nfephp-org/sped-nfse-nacional?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Api para comunicação com webservices do Projeto NFSe Nacional
+Biblioteca para comunicação com webservices do Projeto NFSe Nacional
 
-## Esta API esta sendo testada para Porto Alegre (apenas) e está em BETHA TESTES
+## Para Porto Alegre e Belo Horizonte use o pacote [sped-nfse-bhiss](https://github.com/nfephp-org/sped-nfse-bhiss)
+
 
 *Utilize o chat do Gitter para iniciar discussões especificas sobre o desenvolvimento deste pacote.*
 
@@ -35,7 +38,6 @@ Não deixe de se cadastrar no [grupo de discussão do NFePHP](http://groups.goog
 ## Cidades já atendidas (podem ainda ser necessários alguns ajustes)
 
 - Recife (PE)
-- Belo Horizonte (MG)
 - Juiz de Fora (MG)
 - Rio de Janeiro (RJ)
 - Angra dos Reis (RJ)
@@ -46,7 +48,6 @@ Não deixe de se cadastrar no [grupo de discussão do NFePHP](http://groups.goog
 - Niteroí (RJ)
 - Rio das Ostras (RJ)
 - Americana (SP)
-- Porto Alegre (RS)
 
 ## Dependências
 
