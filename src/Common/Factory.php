@@ -34,6 +34,10 @@ class Factory
      * @var DOMNode
      */
     protected $rps;
+    /**
+     * @var \stdClass
+     */
+    protected $config;
 
     /**
      * Constructor
@@ -50,15 +54,28 @@ class Factory
     }
     
     /**
+     * Add config
+     * @param \stdClass $config
+     */
+    public function addConfig($config)
+    {
+        $this->config = $config;
+    }
+    
+    /**
      * Builder, converts sdtClass Rps in XML Rps
      * NOTE: without Prestador Tag
      * @return string RPS in XML string format
      */
     public function render()
     {
+        $num = '';
+        if (!empty($this->std->identificacaorps->numero)) {
+            $num = $this->std->identificacaorps->numero;
+        }
         $infRps = $this->dom->createElement('InfRps');
         $att = $this->dom->createAttribute('Id');
-        $att->value = $this->std->identificacaorps->numero;
+        $att->value = "rps{$num}";
         $infRps->appendChild($att);
         
         $this->addIdentificacao($infRps);
@@ -101,6 +118,7 @@ class Factory
         );
         
         $this->addServico($infRps);
+        $this->addPrestador($infRps);
         $this->addTomador($infRps);
         $this->addIntermediario($infRps);
         $this->addConstrucao($infRps);
@@ -134,6 +152,38 @@ class Factory
             $node,
             "Tipo",
             $id->tipo,
+            true
+        );
+        $parent->appendChild($node);
+    }
+    
+    /**
+     * Includes prestador
+     * @param DOMNode $parent
+     * @return void
+     */
+    protected function addPrestador(&$parent)
+    {
+        if (!isset($this->config)) {
+            return;
+        }
+        $node = $this->dom->createElement('Prestador');
+        $this->dom->addChild(
+            $node,
+            "Cnpj",
+            !empty($this->config->cnpj) ? $this->config->cnpj : null,
+            false
+        );
+        $this->dom->addChild(
+            $node,
+            "Cpf",
+            !empty($this->config->cpf) ? $this->config->cpf : null,
+            false
+        );
+        $this->dom->addChild(
+            $node,
+            "InscricaoMunicipal",
+            $this->config->im,
             true
         );
         $parent->appendChild($node);

@@ -19,11 +19,13 @@ use NFePHP\NFSeNac\Common\Tools as BaseTools;
 use NFePHP\NFSeNac\RpsInterface;
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Validator;
+use NFePHP\NFSeNac\Common\Signer;
 
 class Tools extends BaseTools
 {
-    const ERRO_EMISSAO = 1;
-    const SERVICO_NAO_CONCLUIDO = 2;
+    const CANCEL_ERRO_EMISSAO = 1;
+    const CANCEL_SERVICO_NAO_CONCLUIDO = 2;
+    const CANCEL_DUPLICIDADE = 4;
     
     protected $xsdpath;
     
@@ -43,25 +45,36 @@ class Tools extends BaseTools
      * @param integer $codigo
      * @return string
      */
-    public function cancelarNfse($id, $numero, $codigo = self::ERRO_EMISSAO)
+    public function cancelarNfse($id, $numero, $codigo = self::CANCEL_ERRO_EMISSAO)
     {
         $operation = 'CancelarNfse';
-        $pedido = "<Pedido xmlns=\"{$this->wsobj->msgns}\">"
+        $pedido = "<CancelarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
+            . "<Pedido>"
             . "<InfPedidoCancelamento Id=\"$id\">"
             . "<IdentificacaoNfse>"
             . "<Numero>$numero</Numero>"
-            . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
-            . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
-            . "<CodigoMunicipio>" . $this->config->cmun . "</CodigoMunicipio>"
+            . "<Cnpj>{$this->config->cnpj}</Cnpj>"
+            . "<InscricaoMunicipal>{$this->config->im}</InscricaoMunicipal>"
+            . "<CodigoMunicipio>{$this->config->cmun}</CodigoMunicipio>"
             . "</IdentificacaoNfse>"
             . "<CodigoCancelamento>$codigo</CodigoCancelamento>"
             . "</InfPedidoCancelamento>"
-            . "</Pedido>";
-        
-        $signed = $this->sign($pedido, 'InfPedidoCancelamento', 'Id');
-        $content = "<CancelarNfseEnvio xmlns=\"{$this->wsobj->msgns}\">"
-            . $signed
+            . "</Pedido>"
             . "</CancelarNfseEnvio>";
+        $content = Signer::sign(
+            $this->certificate,
+            $pedido,
+            'InfPedidoCancelamento',
+            'Id',
+            OPENSSL_ALGO_SHA1,
+            [true,false,null,null],
+            'Pedido'
+        );
+        $content = str_replace(
+            ['<?xml version="1.0"?>', '<?xml version="1.0" encoding="UTF-8"?>'],
+            '',
+            $content
+        );
         Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
@@ -183,8 +196,8 @@ class Tools extends BaseTools
         }
         $content = '';
         foreach ($arps as $rps) {
-            $xml = $this->putPrestadorInRps($rps);
-            $xmlsigned = $this->sign($xml, 'InfRps', 'Id');
+            $rps->config($this->config);
+            $xmlsigned = $this->sign($rps->render(), 'InfRps', 'Id');
             $content .= $xmlsigned;
         }
         $contentmsg = "<EnviarLoteRpsEnvio xmlns=\"{$this->wsobj->msgns}\">"
