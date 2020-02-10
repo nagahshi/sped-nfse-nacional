@@ -102,7 +102,7 @@
         "municipio": "Maringá",
         "uf": "PR",
         "homologacao": "https:\/\/isseteste.maringa.pr.gov.br\/ws\/",
-        "producao": "https://isse.maringa.pr.gov.br/ws/",
+        "producao": "https:\/\/isse.maringa.pr.gov.br\/ws\/",
         "version": "2.01",
         "msgns": "http:\/\/www.abrasf.org.br\/nfse.xsd",
         "soapns": "http:\/\/www.nfe.com.br"
